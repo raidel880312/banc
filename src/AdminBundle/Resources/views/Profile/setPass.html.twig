@@ -1,0 +1,33 @@
+{% set module = 'user' | lower %}
+    {% form_theme edit_form 'AdminBundle:Default:formTemplate.html.twig' %}
+<div class="panel panel-yellow">
+    <div class="panel-heading">
+        Edit {{ module | lower }} password
+    </div>
+    <div class="panel-body pan">
+        <form class="form-horizontal form-bordered form-label-stripped" id="form-{{ module }}-edit"
+              action="{{ path('admin_'~module~'_updatepass', { 'id': entity.id }) }}"
+              method="post" {{ form_enctype(edit_form) }}>
+            <div class="form-body pal">
+                <div id="form-error" class="note note-danger">
+                    <h4 class="box-heading">An error occurred</h4>
+                    <p id="form-error-detail"></p>
+                </div>
+                {{ form_widget(edit_form) }}
+                {{ form_errors(edit_form) }}
+                <input type="hidden" name="_method" value="PUT"/>
+            </div>
+            <div class="form-actions pal">
+                <div class="form-group mbn">
+                    <div class="col-md-offset-3 col-md-6">
+                        <a id="_ok" data-target="form-{{ module }}-edit" class="btn btn-primary"><i
+                                    class="fa fa-check"></i></a>&nbsp;&nbsp;
+                        <a id="_cancel" class="btn btn-danger" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% include 'AdminBundle:includes:admin_js.html.twig' %}

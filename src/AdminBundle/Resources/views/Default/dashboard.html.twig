@@ -1,0 +1,41 @@
+{% spaceless %}
+    <div id="tab-general">
+        <div id="sum_box" class="row mbl">
+            {% if accounts|length > 0 %}
+                {% for account in accounts %}
+                    <div class="col-sm-6 col-md-3">
+                        <div class="panel income db mbm shadow">
+                            <div class="panel-body">
+                                <p><strong>Owner: </strong> {{ account.user }}</p>
+                                <p><strong>Account number: </strong> {{ account.id }}</p>
+                                <p><strong>Current balance: </strong> {{ account.balance }}</p>
+
+                                <p class="icon">
+                                    <i class="icon fa fa-money"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h1>
+                    There are not accounts created yet.
+                </h1>
+            {% endif %}
+
+        </div>
+
+        <div class="row mbl">
+            <div class="col-lg-8">
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.slimscroll').slimscroll({
+                color: '#428bca',
+            });
+        });
+    </script>
+{% endspaceless %}

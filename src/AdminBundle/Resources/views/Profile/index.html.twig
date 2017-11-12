@@ -1,0 +1,78 @@
+{% set module = 'setting' | lower %}
+{% set title = 'Editar' %}
+{% set action = path('admin_'~module~'_update', { 'id': entity.id }) %}
+
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="profile">
+                    <div class="row" style="margin-bottom: 15px">
+                        <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8 ">
+                            <h2>{{ entity.name }}</h2>
+                            <p>
+                                <strong>Role:</strong>
+                                {% for r in entity.roles %}
+                                    {{ r.name }}
+                                {% endfor %}
+                            </p>
+
+                            <p>
+                                <strong><i class="fa fa-envelope"></i>&nbsp; E-mail:</strong> {{ entity.email }}
+                            </p>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4  text-center">
+                            <figure>
+                                <img class="img-responsive img-circle" style="display: inline-block" alt="avatar"
+                                     src="{{ asset(entity.webPath is empty ? 'bundles/admin/image/user.png': entity.webPath) }}">
+                                <figcaption class="ratings">
+                                    <p>
+                                        <a href="#">
+                                            <span class="fa fa-star"></span>
+                                        </a>
+                                        <a href="#">
+                                            <span class="fa fa-star"></span>
+                                        </a>
+                                        <a href="#">
+                                            <span class="fa fa-star"></span>
+                                        </a>
+                                        <a href="#">
+                                            <span class="fa fa-star"></span>
+                                        </a>
+                                        <a href="#">
+                                            <span class="fa fa-star"></span>
+                                        </a>
+                                    </p>
+                                </figcaption>
+                                <i id="options" class="fa fa-gear dropdown-toggle btn btn-warning "
+                                   data-toggle="dropdown"></i>
+                                <ul class="dropdown-menu pull-right text-left" role="menu">
+                                    <li>
+                                        <a href="{{ path('admin_profile_editprofile',{'id': entity.id}) }}" class="_edit">
+                                            <span class="fa fa-edit"></span>
+                                            &nbsp; Edit profile
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('admin_profile_setpass', {'id': entity.id} ) }}" class="_set_pass">
+                                            <span class="fa fa-random"></span>
+                                            &nbsp; Change password
+                                        </a>
+                                    </li>
+                                </ul>
+                            </figure>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <div id="viewer">
+
+        </div>
+    </div>
+</div>

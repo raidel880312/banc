@@ -1,0 +1,34 @@
+<table class="table table-hover table-bordered bg-white">
+    <thead>
+    <tr>
+        <th colspan="2">Transfer</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr>
+        <td> Origin account</td>
+        <td> {{ entity.getOriginAccount() }}</td>
+    </tr>
+
+    <tr>
+        <td> Destiny account</td>
+        <td> {{ entity.getDestinyAccount() }}</td>
+    </tr>
+
+    <tr>
+        <td> Amount</td>
+        <td> {{ entity.amount }}</td>
+    </tr>
+
+    <tr>
+        <td> Description</td>
+        <td> {{ entity.description }}</td>
+    </tr>
+    <tr>
+        <td> Date</td>
+        <td> {{ entity.date }}</td>
+    </tr>
+
+    </tbody>
+</table>

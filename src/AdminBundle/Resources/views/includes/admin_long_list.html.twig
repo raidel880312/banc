@@ -1,0 +1,66 @@
+{% spaceless %}
+    {% set module = module | lower %}
+    {% set title = title | lower %}
+    {% set name = name %}
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div id="viewer">
+
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-blue">
+                <div class="panel-heading">
+                    List of {{ title }}
+                    <i data-href="{{ path(name~'_'~module~'_new') }}"
+                       class="fa fa-plus btn btn-warning pull-right _new"></i>
+                </div>
+                <div class="panel-body  bg-white">
+                    <table id="grid-view" class="display table table-bordered table-hover bg-white">
+                        <thead>
+                        <tr>
+                            <th>{{ title | upper }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if list %}
+                            {% for l in list %}
+                                <tr>
+                                    <td>{{ l.title }}<br>
+
+                                        <div class="row-actions">
+                                        <span>
+                                            <a href="{{ path(name~'_'~module~'_show', {'id': l.id} ) }}"
+                                               class="text-primary _show"
+                                               title="Show this element">Show</a>
+                                            |
+                                        </span>
+                                        <span>
+                                            <a href="{{ path(name~'_'~module~'_edit', {'id': l.id} ) }}"
+                                               class="text-warning _edit"
+                                               title="Edit this element">Edit</a>
+                                            |
+                                        </span>
+                                        <span>
+                                            <a href="{{ path(name~'_'~module~'_delete', {'id': l.id} ) }}"
+                                               class="text-danger _trash"
+                                               title="Delete this element">Delete</a>
+                                         </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td>No data to show</td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endspaceless %}
+

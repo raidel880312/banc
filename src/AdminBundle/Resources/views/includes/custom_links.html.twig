@@ -1,0 +1,29 @@
+{#Menu links#}
+{% if is_granted('ROLE_ADMIN') %}
+
+    <li>
+        <a class="link" href="{{ path('transfer_account_index') }}">
+            <i class="fa fa-money fa-fw">
+            </i>
+            <span class="menu-title">Account</span>
+        </a>
+    </li>
+
+    <li>
+        <a class="link" href="{{ path('transfer_accounttype_index') }}">
+            <i class="fa fa-list-ol fa-fw">
+            </i>
+            <span class="menu-title">Account type</span>
+        </a>
+    </li>
+{% endif %}
+    {% if is_granted('ROLE_CLIENT') %}
+        <li>
+            <a class="link" href="{{ path('transfer_transfer_index') }}">
+                <i class="fa fa-exchange fa-fw">
+                </i>
+                <span class="menu-title">Transfer</span>
+            </a>
+        </li>
+    {% endif %}
+

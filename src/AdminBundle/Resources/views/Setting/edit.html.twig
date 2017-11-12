@@ -1,0 +1,113 @@
+{% set module = 'setting' | lower %}
+{% set title = 'Edit' %}
+{% set action = path('admin_'~module~'_update', { 'id': entity.id }) %}
+{% form_theme edit_form 'AdminBundle:Default:formTemplate.html.twig' %}
+
+<div class="panel panel-blue">
+    <div class="panel-heading">
+        {{ title ~' '~ module | lower }}
+        <i id="_edit_inline" class="fa fa-edit btn btn-warning pull-right "></i>
+    </div>
+    <div class="panel-body pan bg-white">
+        <form class="form-horizontal form-bordered form-label-stripped" id="form-{{ module }}-edit"
+              action="{{ action }}"
+              method="post" {{ form_enctype(edit_form) }} role="form">
+            <div class="form-body pal">
+                <div id="form-error" class="note note-danger">
+                    <h4 class="box-heading">An error occurred</h4>
+
+                    <p id="form-error-detail"></p>
+                </div>
+                {{ form_widget(edit_form) }}
+                {{ form_errors(edit_form) }}
+            </div>
+            <div class="form-actions pal">
+                <div class="form-group mbn">
+                    <div class="col-md-offset-3 col-md-6">
+                        <a id="_ok" data-target="form-{{ module }}-edit" class="btn btn-primary"><i
+                                    class="fa fa-check"></i></a>&nbsp;&nbsp;
+                        <a id="_cancel_inline" class="btn btn-danger" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#form-{{ module }}-edit input').each(function () {
+            $(this).attr('disabled', 'disabled');
+            toggleBtnAction('init');
+        });
+        $('#form-{{ module }}-edit textarea').attr('disabled', 'disabled');
+
+        $('#_edit_inline').on('click', function () {
+            toggleBtnAction('show');
+        });
+        $('#_cancel_inline').on('click', function () {
+            toggleBtnAction('hide');
+        });
+
+        function toggleBtnAction(v) {
+            if (v == 'init') {
+                $('#_ok').hide();
+                $('#_cancel_inline').hide();
+            }
+            else {
+                $('#form-{{ module }}-edit input').each(function () {
+                    if (v == 'hide') {
+                        $(this).attr('disabled', 'disabled');
+                        $('#_ok').hide();
+                        $('#_cancel_inline').hide();
+                    }
+                    else if (v == 'show') {
+                        $(this).removeAttr('disabled');
+                        $('#_ok').show();
+                        $('#_cancel_inline').show();
+                    }
+
+                });
+                if (v == 'hide') {
+                    $('#form-{{ module }}-edit textarea').attr('disabled', 'disabled');
+                }
+                else if (v == 'show') {
+                    $('#form-{{ module }}-edit textarea').removeAttr('disabled');
+                }
+
+
+            }
+
+        }
+
+        $('#_ok').on('click', function () {
+            $('#form-{{ module }}-edit').submit();
+        });
+
+        $('#form-{{ module }}-edit').ajaxForm({
+            dataType: 'json',
+            beforeSubmit: validate,
+            success: function (r) {
+                if (r.success) {
+                    toggleBtnAction('hide');
+                    App.alert(r.message);
+                } else {
+                    $('#form-error').toggle();
+                    $('#form-error-detail').html(r.error.message);
+                }
+            }
+        });
+
+        function validate(formData) {
+            for (var i = 0; i < formData.length; i++) {
+                if (formData[i].required == true && formData[i].value == '') {
+                    var name = formData[i].name;
+                    var parent = $('input[name*="' + name + '"]').parent();
+                    $(parent).addClass('state-error');
+                    $(parent).find('span.error').toggle();
+                    return false;
+                }
+            }
+        }
+    });
+</script>

@@ -1,0 +1,23 @@
+{% set module = module | lower %}
+
+<table class="table table-hover table-bordered bg-white">
+    <thead>
+    <tr>
+        <th colspan="2">{{ module | capitalize }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for field in fields %}
+        {% if field != "id" %}
+            <tr>
+                <td> {{ field['fieldName'] | capitalize }}</td>
+                {% if field['fieldName'] == 'path' %}
+                    <td><img src="{{ "{{ asset(entity.webPath()) }}" }}" alt=""></td>
+                {% else %}
+                    <td> {{ "{{ entity."~field['fieldName']~" }}" }}</td>
+                {% endif %}
+            </tr>
+        {% endif %}
+    {% endfor %}
+    </tbody>
+</table>

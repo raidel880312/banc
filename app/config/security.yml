@@ -1,0 +1,48 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+
+security:
+    encoders:
+        AdminBundle\Entity\User: {algorithm: sha512, encode_as_base64: true, iterations: 10}
+
+    role_hierarchy:
+        ROLE_CLIENT: ROLE_CLIENT
+        ROLE_ADMIN: ROLE_ALLOWED_TO_SWITCH, ROLE_ADMIN, ROLE_CLIENT
+
+    providers:
+        users:
+            entity: { class: AdminBundle\Entity\User, property: email }
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        login:
+            pattern:  ^/admin/login$
+            security: false
+
+        front_login:
+            pattern:  ^/index/login$
+            security: false
+
+        backend:
+            pattern:        ^/admin
+            provider:       users
+            form_login:
+                login_path: _login
+                check_path: _security_check
+                default_target_path: admin_default_index
+                always_use_default_target_path: true
+            logout:
+                path: _logout
+                target: _login
+            remember_me:
+                key:        m4d3r4
+                lifetime:   86400
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: [ROLE_ADMIN, ROLE_CLIENT] }
+
+

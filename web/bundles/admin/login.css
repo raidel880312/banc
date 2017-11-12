@@ -1,0 +1,35 @@
+.login {
+    width: 320px;
+    margin: 3em auto;
+    padding: 10px;
+}
+.panel.panel-yellow {
+    border-color: #f2994b;
+}
+.panel {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+.panel {
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+.panel.panel-yellow > .panel-heading {
+    background: #f2994b none repeat scroll 0 0;
+    border-color: #f2994b !important;
+    color: #ffffff;
+}
+.panel > .panel-heading {
+    border-color: #e5e5e5 !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    font-size: 18px;
+    padding: 7px 15px;
+}
+.panel-heading {
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}

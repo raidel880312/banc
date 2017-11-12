@@ -1,0 +1,80 @@
+{% spaceless %}
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            {% set module = 'user' %}
+            <div class="panel panel-blue">
+                <div class="panel-heading">
+                    List of {{ module }}
+                    <i data-href="{{ path('admin_'~module~'_new') }}"
+                       class="fa fa-plus btn btn-warning pull-right _new"></i>
+                </div>
+                <div class="panel-body  bg-white">
+                    {% if list | length != 0 %}
+                        <table id="grid-view" class="display table table-bordered table-hover bg-white">
+                            <thead>
+                            <tr>
+                                <th>{{ module | upper }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for l in list %}
+                                {% if l.id != app.user.id %}
+                                    <tr>
+                                        <td>{{ l.name }}<br>
+
+                                            <div class="row-actions">
+                                        <span>
+                                            <a href="{{ path('admin_'~module~'_show', {'id': l.id} ) }}"
+                                               class="text-primary _show"
+                                               title="Show this element">Show</a>
+
+                                        </span>
+                                        <span>
+                                             |
+                                            <a href="{{ path('admin_'~module~'_edit', {'id': l.id} ) }}"
+                                               class="text-warning _edit"
+                                               title="Edit this element">Edit</a>
+
+                                        </span>
+
+                                        <span>
+                                            |
+                                            <a href="{{ path('admin_'~module~'_setpass', {'id': l.id} ) }}"
+                                               class="text-warning _set_pass"
+                                               title="Change password">Change password</a>
+
+                                        </span>
+                                                {% if app.user.id != l.id %}
+                                                    <span>
+                                                |
+                                                <a href="{{ path('admin_'~module~'_delete', {'id': l.id} ) }}"
+                                                   class="text-danger _trash"
+                                                   title="Delete this element">Delete</a>
+                                            </span>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <div class="note note-danger">
+                            <h4>No data to show</h4>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div id="viewer">
+
+            </div>
+        </div>
+    </div>
+    {% include 'AdminBundle:includes:admin_js.html.twig' %}
+{% endspaceless %}
+

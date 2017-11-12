@@ -1,0 +1,126 @@
+<?php
+
+namespace {{ namespace }};
+
+use AdminBundle\Entity\Trace;
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use {{ bundle }}\Entity\{{ model }};
+use {{ bundle }}\Form\{{ model }}Type;
+use AdminBundle\Manager\AdminManager;
+
+/**
+* {{ model }} controller.
+*
+* @Route("/admin/{{ routing }}")
+*/
+class {{ classBasename }} extends AdminManager {
+
+    function __construct() {
+        parent::__construct(new {{ model }}(), new {{ model }}Type(), "{{ bundle }}:{{ model }}");
+    }
+
+    /**
+    * Lists all {{ model }} entities.
+    *
+    * @Route("/")
+    * @return template
+    * @Template()
+    */
+    public function indexAction() {
+         return parent::listObjects();
+    }
+
+
+    /**
+    * Lists all {{ model }} entities.
+    *
+    * @Route("/list")
+    * @return template
+    * @Template()
+    */
+    public function listAction() {
+        return parent::listObjects();
+    }
+
+    /**
+    * Finds and displays a {{ model }} entity.
+    * @param integer $id
+    * @return template
+    * @Route("/{id}/show")
+    * @Template()
+    */
+    public function showAction($id) {
+        return parent::showObject($id);
+    }
+
+    /**
+    * Displays a form to create a new {{ model }} entity.
+    * @return template
+    * @Route("/new")
+    * @Template()
+    */
+    public function newAction() {
+        return parent::newObject();
+    }
+
+    /**
+    * Creates a new {{ model }} entity.
+    *
+    * @param Request $request
+    * @return Array json
+    * @Route("/create")
+    * @Method("POST")
+    */
+    public function createAction(Request $request) {
+        /**
+        * In case you need to change the FormType, change [$this->form] for yours
+        */
+        parent::handleForm(Trace::CREATING, $request, $this->form, null, 'Objeto creado satisfactoriamente', $this->repository);
+    }
+
+    /**
+    * Displays a form to edit an existing {{ model }} entity.
+    * @param integer $id
+    * @return template
+    * @Route("/{id}/edit")
+    * @Template()
+    */
+    public function editAction($id) {
+        /**
+        * In case you need to change the FormType, pass as the second parameter
+        */
+        return parent::editObject($id);
+    }
+
+    /**
+    * Edits an existing {{ model }} entity.
+    * @param Request $request
+    * @param integer $id
+    * @return Array json
+    * @Route("/{id}/update")
+    * @Method("POST")
+    */
+    public function updateAction(Request $request, $id) {
+        /**
+        * In case you need to change the FormType, pass as the second parameter
+        */
+        parent::handleForm(Trace::UPDATING, $request, $this->form, $id, 'Objeto actualizado satisfactoriamente', $this->repository);
+    }
+
+    /**
+    * Deletes a {{ model }} entity.
+    * @param integer $id
+    * @return template
+    * @Route("/{id}/delete")
+    * @Method("DELETE")
+    * @Template()
+    */
+    public function deleteAction($id) {
+       return parent::deleteObject($id);
+    }
+
+}
+

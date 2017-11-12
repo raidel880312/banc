@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="admin.example.class">AdminBundle\Services\FormError</parameter>
+        <!--<parameter key="admin.settings.class">AdminBundle\Services\AppSettings</parameter>-->
+        <parameter key="admin.extension.class">AdminBundle\Form\Extension\ImageTypeExtension</parameter>
+        <parameter key="twig.extension.class">AdminBundle\Generator\HtmlcssBundle\HtmlcssExtension</parameter>
+    </parameters>
+
+    <services>
+        <service id="formError" class="%admin.example.class%">
+        </service>
+        <!--<service id="appsettings" class="%admin.settings.class%">-->
+            <!--<argument>%session.class%%</argument>-->
+            <!--<argument>%doctrine.orm.entity_manager.class%</argument>-->
+        <!--</service>-->
+
+
+        <service id="acme_demo_bundle.image_type_extension"
+                 class="%admin.extension.class%">
+            <tag name="form.type_extension" alias="file" />
+        </service>
+        <service id="htmlcss.twig.htmlcss_extension"
+                 class="%twig.extension.class%">
+            <tag name="twig.extension" alias="name" />
+        </service>
+        <service id="acme_demo.form.type.editor" class="AdminBundle\Form\Type\EditorType">
+            <tag name="form.type" alias="editor" />
+        </service>
+        <service id="acme_demo.form.type.datepicker" class="AdminBundle\Form\Type\DatepickerType">
+            <tag name="form.type" alias="datepicker" />
+        </service>
+        <service id="acme_demo.form.type.timepicker" class="AdminBundle\Form\Type\TimepickerType">
+            <tag name="form.type" alias="timepicker" />
+        </service>
+        <service id="acme_demo.form.type.rangepicker" class="AdminBundle\Form\Type\RangepickerType">
+            <tag name="form.type" alias="rangepicker" />
+        </service>
+        <service id="acme_demo.form.type.select2" class="AdminBundle\Form\Type\Select2Type">
+            <tag name="form.type" alias="select2" />
+        </service>
+    </services>
+</container>

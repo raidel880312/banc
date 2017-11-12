@@ -1,0 +1,78 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Login{% endblock %}
+
+{% block stylesheets %}
+    <link type="text/css" rel="stylesheet"
+          href="{{ asset('vendors/assets/css/font-awesome.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('vendors/bootstrap/css/bootstrap.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('vendors/assets/css/animate.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('vendors/kadmin-dark-template/styles/main.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/admin/login.css') }}">
+{% endblock %}
+
+
+{% block body %}
+    <div class="login">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                Login
+            </div>
+            <div class="panel-body pan">
+                <form class="form-horizontal" action="{{ path('_security_check') }}" method="post">
+
+                    <div class="form-body pal row">
+                        {% if error %}
+                            <div class="note note-danger">
+                                <h4 class="box-heading">An error occurred</h4>
+
+                                <p>{{ error.message }}</p>
+                            </div>
+                        {% endif %}
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                            <div class="form-group">
+                                <label class="control-label" for="inputName">
+                                    Username:
+                                </label>
+
+                                <div class="input-icon right">
+                                    <i class="fa fa-user"></i>
+                                    <input type="text" class="form-control" placeholder="" id="inputName"
+                                           name="_username" value="{{ last_username }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                            <div class="form-group">
+                                <label class="control-label" for="inputName">
+                                    Password:
+                                </label>
+
+                                <div class="input-icon right">
+                                    <i class="fa fa-lock"></i>
+                                    <input type="password" class="form-control" placeholder=""
+                                           id="inputPassword"
+                                           name="_password">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions pal">
+                        <div class="form-group mbn">
+                            <div class="col-md-offset-3 col-md-9 ">
+                                <button class="btn btn-primary pull-right" type="submit">
+                                    Login
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

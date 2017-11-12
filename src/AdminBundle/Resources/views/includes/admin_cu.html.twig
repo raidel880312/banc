@@ -1,0 +1,48 @@
+{% spaceless %}
+    {% set module = module | lower %}
+    {% set title = title %}
+    {% set name = name | lower %}
+    {% if action == 'update' %}
+        {% set action = path(name~'_'~module~'_update', { 'id': entity.id }) %}
+        {% set type = 'Edit' %}
+    {% else %}
+        {% set action = path(name~'_'~module~'_create') %}
+        {% set type = 'Create' %}
+    {% endif %}
+
+    {% form_theme edit_form 'AdminBundle:Default:formTemplate.html.twig' %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            {{ type ~' '~ title | lower }}
+        </div>
+        <div class="panel-body pan">
+            <form class="form-horizontal form-bordered form-label-stripped" id="form-{{ module }}-edit"
+                  action="{{ action }}"
+                  method="post" {{ form_enctype(edit_form) }}>
+                <div class="form-body pal">
+                    <div id="form-error" class="note note-danger">
+                        <h4 class="box-heading">An error occurred</h4>
+
+                        <p id="form-error-detail"></p>
+                    </div>
+                    {{ form_widget(edit_form) }}
+                    {{ form_errors(edit_form) }}
+                    <input type="hidden" name="_method" value="POST"/>
+                </div>
+                <div class="form-actions pal">
+                    <div class="form-group mbn">
+                        <div class="col-md-offset-3 col-md-6">
+                            <a id="_ok" data-target="form-{{ module }}-edit" class="btn btn-primary"><i
+                                        class="fa fa-check"></i></a>&nbsp;&nbsp;
+                            <a id="_cancel" class="btn btn-danger" href="#"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(edit_form) }}
+            </form>
+        </div>
+    </div>
+
+    {% include 'AdminBundle:includes:admin_js.html.twig' %}
+
+{% endspaceless %}

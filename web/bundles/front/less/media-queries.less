@@ -1,0 +1,59 @@
+@screen-xs: 320px;
+@screen-sm: 778px;
+@screen-md: 992px;
+@screen-lg: 1200px;
+
+//Padding
+@padding-base: 10px;
+@padding-base-vertical: 50px;
+@padding-base-horizontal: 30px;
+@padding-buttons-base: 20px;
+@padding-buttons-vertical: 15px;
+@padding-buttons-horizontal: 30px;
+//Margin
+@margin-base: 10px;
+@margin-base-vertical: 50px;
+@margin-base-horizontal: 30px;
+@margin-buttons-base: 30px;
+@margin-buttons-vertical: 15px;
+@margin-buttons-horizontal: 30px;
+@margin-icon-horizontal: 15px;
+
+.border(@b) {
+  border: @b;
+}
+
+.margin(@m) {
+  margin: @m;
+}
+
+.padding(@p) {
+  padding: @p;
+}
+.fontSize(@size){
+  font-size: @size !important;
+}
+
+@media (min-width: @screen-xs) {
+  h2{
+    .fontSize(24px)
+  }
+  h3{
+    .fontSize(18px)
+  }
+  .btn{
+    .padding(@padding-base);
+  }
+
+
+}
+
+@media (min-width: @screen-sm) {
+
+}
+@media (min-width: @screen-md) {
+
+}
+@media (min-width: @screen-lg) {
+
+}

@@ -1,0 +1,29 @@
+<table class="table table-hover table-bordered bg-white">
+    <thead>
+    <tr>
+        <th colspan="2">User detail:</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td> Username</td>
+        <td> {{ entity.username }}</td>
+    </tr>
+    <tr>
+        <td> Name</td>
+        <td> {{ entity.name }}</td>
+    </tr>
+    <tr>
+        <td> Email</td>
+        <td> {{ entity.email }}</td>
+    </tr>
+    <tr>
+        <td> Path</td>
+        <td><img src="{{ asset(entity.webPath()) }}" alt=""/></td>
+    </tr>
+    <tr>
+        <td> Enabled</td>
+        <td> {{ entity.enabled }}</td>
+    </tr>
+    </tbody>
+</table>

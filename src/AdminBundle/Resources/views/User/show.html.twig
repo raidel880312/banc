@@ -1,0 +1,37 @@
+<table class="table table-hover table-bordered bg-white">
+    <thead>
+    <tr>
+        <th colspan="2">User details:</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td> Profile image</td>
+        <td><img src="{{ asset(entity.webPath() is empty ? 'bundles/admin/image/user.png' : entity.webPath()) }}" alt="{{ entity.username }}" width="100px" height="100px"/></td>
+    </tr>
+    <tr>
+        <td> Name</td>
+        <td> {{ entity.name }}</td>
+    </tr>
+    <tr>
+        <td> E-mail</td>
+        <td> {{ entity.email }}</td>
+    </tr>
+
+    <tr>
+        <td> Roles</td>
+        <td>
+            <ul>
+                {% for t in entity.roles %}
+                    <li> {{ t.name  }}</li>
+                {% endfor %}
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td> Phones</td>
+        <td> {{ entity.phones}}</td>
+    </tr>
+
+    </tbody>
+</table>

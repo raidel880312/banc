@@ -1,0 +1,65 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('select.select2').select2();
+
+        $('textarea.editor').each(function (e) {
+            $(this).ckeditor();
+            CKEDITOR.editorConfig = function (config) {
+                config.toolbarGroups = [
+                    {name: 'clipboard', groups: ['clipboard', 'undo']},
+                    {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
+                    {name: 'links', groups: ['links']},
+                    {name: 'insert', groups: ['insert']},
+                    {name: 'forms', groups: ['forms']},
+                    {name: 'tools', groups: ['tools']},
+                    {name: 'document', groups: ['mode', 'document', 'doctools']},
+                    {name: 'others', groups: ['others']},
+                    '/',
+                    {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
+                    {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
+                    {name: 'styles', groups: ['styles']},
+                    {name: 'colors', groups: ['colors']},
+                    {name: 'about', groups: ['about']}
+                ];
+
+                config.removeButtons = 'Underline,Scayt';
+            };
+        });
+
+        $('#_ok').on('click', function () {
+            App.loader(55);
+            $('#form-{{ module }}-edit').submit();
+        });
+
+        $('#form-{{ module }}-edit').ajaxForm({
+            dataType: 'json',
+//            beforeSubmit: validate,
+            success: function (r) {
+                if (r.success) {
+                    $('#viewer').empty();
+                    App.alert(r.message);
+                    $('.page-content').html(r.view);
+                    $('#grid-view').dataTable();
+                } else {
+                    $('#form-error').toggle();
+                    $('#form-error-detail').html(r.error.message);
+                }
+            }
+        });
+
+        function validate(formData) {
+            for (var i = 0; i < formData.length; i++) {
+                if (formData[i].required == true && formData[i].value == '') {
+                    var name = formData[i].name;
+                    var parent = $('input[name*="' + name + '"]').parent();
+                    $(parent).addClass('state-error');
+                    $(parent).find('span.error').toggle();
+                    return false;
+                }
+            }
+        }
+
+        $('#grid-view').dataTable();
+    });
+</script>

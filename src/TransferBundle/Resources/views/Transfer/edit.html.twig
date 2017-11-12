@@ -1,0 +1,5 @@
+{#{% if is_granted('ROLE_ADMIN') %}#}
+    {#{% include 'AdminBundle:includes:admin_cu.html.twig' with {'module': 'transfer', 'entity': entity, 'edit_form': edit_form, 'action': 'update', 'title':  'transfer', 'name':'Transfer'} %}#}
+{#{% else %}#}
+    <h1>Edit transfer action is not allowed</h1>
+{#{% endif %}#}
